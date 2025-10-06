@@ -28,10 +28,14 @@ import homeRouter from './routes/home.routes.js'
 import allPostsRouter from './routes/allPosts.routes.js'
 
 
-app.use('/api/v1/users', userRouter)
-app.use('/api/v1', blogRouter)
-app.use('/api/v1', homeRouter)
-app.use('/api/v1', allPostsRouter)
+app.use('/users', userRouter)
+app.use('', blogRouter)
+app.use('', homeRouter)
+app.use('', allPostsRouter)
+// app.use('/api/v1/users', userRouter)
+// app.use('/api/v1', blogRouter)
+// app.use('/api/v1', homeRouter)
+// app.use('/api/v1', allPostsRouter)
 
 
 
