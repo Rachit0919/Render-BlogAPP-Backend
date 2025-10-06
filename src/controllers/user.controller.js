@@ -84,8 +84,8 @@ const loginUser = asyncHandler( async(req, res) =>{
     const options = {
         httpOnly: true,
         secure: true,
-        // sameSite: "lax",
-        // path: "/"
+        sameSite: "none",
+        path: "/"
     }
     // console.log("\nToken during login:", accessToken)
     return res
@@ -145,8 +145,8 @@ const logOutUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,      
-    // sameSite: "lax",
-    // path: "/"           
+    sameSite: "none",
+    path: "/"           
   };
 
   res.clearCookie("accessToken", options);
