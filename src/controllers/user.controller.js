@@ -83,9 +83,9 @@ const loginUser = asyncHandler( async(req, res) =>{
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        path: "/"
+        secure: true,
+        // sameSite: "lax",
+        // path: "/"
     }
     // console.log("\nToken during login:", accessToken)
     return res
@@ -144,9 +144,9 @@ const logOutUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: false,      // false for localhost dev
-    sameSite: "lax",
-    path: "/"           // important: must match cookie path when set
+    secure: true,      
+    // sameSite: "lax",
+    // path: "/"           
   };
 
   res.clearCookie("accessToken", options);
@@ -196,8 +196,8 @@ const refreshAccessToken = asyncHandler(async(req, res) =>{
     
         const options = {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax"
+            secure: true,
+            // sameSite: "lax"
         }
     
         const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
