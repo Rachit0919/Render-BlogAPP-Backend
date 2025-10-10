@@ -64,7 +64,7 @@ const loginUser = asyncHandler( async(req, res) =>{
     const user = await User.findOne({
         email
     })
-    // console.log("\nUser: ", user)
+    console.log("\nUser: ", user)
 
     if(!user){
         throw new ApiError(404, "User does not exist")
@@ -87,7 +87,7 @@ const loginUser = asyncHandler( async(req, res) =>{
         sameSite: "none",
         path: "/"
     }
-    // console.log("\nToken during login:", accessToken)
+    console.log("\nToken during login:", accessToken)
     return res
     .status(200)
     .cookie("accessToken", accessToken, options)

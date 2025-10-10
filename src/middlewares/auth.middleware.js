@@ -5,17 +5,17 @@ import jwt from 'jsonwebtoken'
 
 export const verifyJWT = asyncHandler( async(req, res, next) =>{
     try {
-        // console.log("verify JWT called")
-        // console.log("req.cookies inside verify JWT:", req.cookies.accessToken)
+        console.log("verify JWT called")
+        console.log("req.cookies inside verify JWT:", req.cookies.accessToken)
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","")
-        // console.log("\nToken: ", token)
+        console.log("\nToken: ", token)
         
         if(!token){
             throw new ApiError(401, "Unauthorized request")
         }
-        // console.log("\nToken recieved:", token)
+        console.log("\nToken recieved:", token)
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        // console.log("\nDecoded Token: ", token)
+        console.log("\nDecoded Token: ", token)
 
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
         if(!user){
