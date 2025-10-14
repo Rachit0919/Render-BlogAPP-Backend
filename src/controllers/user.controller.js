@@ -84,8 +84,8 @@ const loginUser = asyncHandler( async(req, res) =>{
     const options = {
         httpOnly: true,
         secure: true,
-        // sameSite: "none",
-        // path: "/"
+        sameSite: "none",
+        path: "/"
     }
     console.log("\nToken during login:", accessToken)
     return res
