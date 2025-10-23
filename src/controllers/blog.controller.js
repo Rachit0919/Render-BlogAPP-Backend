@@ -31,7 +31,7 @@ const createPost = asyncHandler(async (req, res) => {
     console.log("\nimage upload on cloudinary: ", imageUploadOnCloudinary)
     // const image = String(imageUploadOnCloudinary)
     const imageDoc = await Image.create({
-      imageURL: imageUploadOnCloudinary.url || imageUploadOnCloudinary.url
+      imageURL: imageUploadOnCloudinary.secure_url 
     })
     const blog = await Blog.create({
       owner,
@@ -66,7 +66,7 @@ const editPost = asyncHandler(async (req, res) => {
 
     if (imageLocalPath) {
       const imageUploadOnCloudinary = await uploadOnCloudinary(imageLocalPath);
-      imageUrl = imageUploadOnCloudinary.url;
+      imageUrl = imageUploadOnCloudinary.secure_url;
     }
 
     post.title = title || post.title;
