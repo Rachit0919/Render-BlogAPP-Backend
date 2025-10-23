@@ -13,7 +13,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
   secure: true,
 });
-// console.log("Cloudinary config: ", cloudinary.config())
+console.log("Cloudinary config: ", cloudinary.config())
 
 const uploadOnCloudinary = async(localFilePath) =>{
     console.log("\nLocal File Path: ", localFilePath)
