@@ -164,7 +164,7 @@ const getAllPosts = asyncHandler(async (req, res) =>{
     .populate('image')
     .sort('-createdAt')
 
-    console.log("Fetched blogs in getAllPosts:", blogs);
+    // console.log("Fetched blogs in getAllPosts:", blogs);
     return res
     .status(200)
     .json(
