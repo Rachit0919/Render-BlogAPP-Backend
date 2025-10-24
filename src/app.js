@@ -15,6 +15,17 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
+app.use((err, req, res, next) => {
+  const statusCode = err.statuscode || 500;
+  const message = err.message || "Internal Server Error";
+
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
+
 app.use(express.json({limit: '16kb'}))
 app.use(express.urlencoded({extended: true, limit: '16kb'}))
 app.use(express.static('public'))
@@ -28,10 +39,7 @@ import homeRouter from './routes/home.routes.js'
 import allPostsRouter from './routes/allPosts.routes.js'
 
 
-// app.use('/users', userRouter)
-// app.use('', blogRouter)
-// app.use('', homeRouter)
-// app.use('', allPostsRouter)
+
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1', blogRouter)
 app.use('/api/v1', homeRouter)
