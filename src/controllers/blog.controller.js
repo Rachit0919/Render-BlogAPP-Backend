@@ -112,7 +112,7 @@ const deletePost = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new ApiError(
       500,
-      "Something went wrong while deleting the blog post"
+      error.message
     );
   }
 });
