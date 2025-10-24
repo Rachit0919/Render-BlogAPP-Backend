@@ -120,7 +120,7 @@ const editPost = asyncHandler(async (req, res) => {
 
 const deletePost = asyncHandler(async (req, res) => {
   try {
-    const postId = req.params._id; // the ID string from URL
+    const postId = req.params.id; // the ID string from URL
     console.log("Post Id inside delete controller: ", postId);
 
     if (!postId) {

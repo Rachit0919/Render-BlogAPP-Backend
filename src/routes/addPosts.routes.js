@@ -13,8 +13,8 @@ import{
 const router = Router()
 
 router.route("/posts").post(verifyJWT,upload.single("image"), createPost);
-router.route("/posts/:_id").put(verifyJWT,upload.single("image"), editPost);
-router.route("/posts/:_id").delete (verifyJWT,upload.single("image"), deletePost);
+router.route("/posts/:id").put(verifyJWT,upload.single("image"), editPost);
+router.route("/posts/:id").delete (verifyJWT,upload.single("image"), deletePost);
 
 
 
