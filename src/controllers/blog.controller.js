@@ -83,40 +83,78 @@ const editPost = asyncHandler(async (req, res) => {
   }
 });
 
+// const deletePost = asyncHandler(async (req, res) => {
+//   try {
+//     const post = req.params._id;
+//     console.log("Post Id inside delete controller: ", post)
+//     if (!post) {
+//       throw new ApiError(400, "Post not found");
+//     }
+//     const user = req.user;
+//     if (user._id.toString() !== post.owner.toString()) {
+//       throw new ApiError(400, "You are not allowed to delete this post");
+//     }
+//     if (post.image?.public_id) {
+//       await cloudinary.uploader.destroy(post.image.public_id);
+//     }
+//     const deletedPost = await Blog.findOneAndDelete({post});
+//     if(deletedPost){
+//         throw new ApiError(500, "Post is not deleted yet")
+//     }
+//     return res
+//     .status(200)
+//     .json(
+//         new ApiResponse(
+//             200,
+//             {},
+//             "Post deleted successfully"
+//         )
+//     )
+//   } catch (error) {
+//     throw new ApiError(
+//       500,
+//       error.message
+//     );
+//   }
+// });
+
 const deletePost = asyncHandler(async (req, res) => {
   try {
-    const post = req.params._id;
-    console.log("Post Id inside delete controller: ", post)
-    if (!post) {
-      throw new ApiError(400, "Post not found");
+    const postId = req.params._id; // the ID string from URL
+    console.log("Post Id inside delete controller: ", postId);
+
+    if (!postId) {
+      throw new ApiError(400, "Post ID not provided");
     }
+
+    // ✅ Fetch the post document from DB
+    const post = await Blog.findById(postId);
+    if (!post) {
+      throw new ApiError(404, "Post not found");
+    }
+
+    // ✅ Compare owner with logged-in user
     const user = req.user;
     if (user._id.toString() !== post.owner.toString()) {
-      throw new ApiError(400, "You are not allowed to delete this post");
+      throw new ApiError(403, "You are not allowed to delete this post");
     }
+
+    // ✅ Delete image from Cloudinary if present
     if (post.image?.public_id) {
       await cloudinary.uploader.destroy(post.image.public_id);
     }
-    const deletedPost = await Blog.findOneAndDelete({post});
-    if(deletedPost){
-        throw new ApiError(500, "Post is not deleted yet")
-    }
+
+    // ✅ Finally delete the post
+    await Blog.findByIdAndDelete(postId);
+
     return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            {},
-            "Post deleted successfully"
-        )
-    )
+      .status(200)
+      .json(new ApiResponse(200, {}, "Post deleted successfully"));
   } catch (error) {
-    throw new ApiError(
-      500,
-      error.message
-    );
+    throw new ApiError(500, error.message);
   }
 });
+
 
 const getAllPosts = asyncHandler(async (req, res) =>{
   console.log("Inside getAllPosts function.");
