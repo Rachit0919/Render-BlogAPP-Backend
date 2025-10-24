@@ -86,6 +86,7 @@ const editPost = asyncHandler(async (req, res) => {
 const deletePost = asyncHandler(async (req, res) => {
   try {
     const post = req.params._id;
+    console.log("Post Id inside delete controller: ", post)
     if (!post) {
       throw new ApiError(400, "Post not found");
     }
